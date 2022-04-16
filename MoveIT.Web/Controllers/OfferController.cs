@@ -14,6 +14,16 @@ namespace MoveIT.Web.Controllers
             _logger = logger;
         }
 
+        [HttpGet("{id}")]
+        public string Get(int id)
+        {
+            return "value";
+        }
+
+        [HttpPost]
+        public void Post([FromBody] string value)
+        {
+        }
 
     }
 }
