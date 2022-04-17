@@ -1,16 +1,11 @@
 ﻿#nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoveIT.Web.Models;
 
 namespace MoveIT.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/offers")]
     [ApiController]
     public class OffersController : ControllerBase
     {
@@ -21,28 +16,39 @@ namespace MoveIT.Web.Controllers
             _context = context;
         }
 
-        // GET: api/Offers
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
-        {
-            return await _context.Customers.ToListAsync();
-        }
-
-        // GET: api/Offers/5
+        // GET: api/offers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(long id)
+        public async Task<ActionResult<Offer>> GetOffer(long id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var offer = await _context.Offers.FindAsync(id);
 
-            if (customer == null)
+            if (offer == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return offer;
         }
 
-        // PUT: api/Offers/5
+        // POST: api/offers
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<Customer>> CreateOffer(Customer customer)
+        {
+            if (!CustomerExists(customer.Email))
+            {
+                _context.Customers.Add(customer);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                _context.Entry(customer).State = EntityState.Modified;
+            }
+
+            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
+        }
+
+        // PUT: api/offers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCustomer(long id, Customer customer)
@@ -73,36 +79,21 @@ namespace MoveIT.Web.Controllers
             return NoContent();
         }
 
-        // POST: api/Offers
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+
+
+        private bool CustomerExists(string email)
         {
-            _context.Customers.Add(customer);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
-        }
-
-        // DELETE: api/Offers/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(long id)
-        {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            _context.Customers.Remove(customer);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return _context.Customers.Any(e => e.Email.ToLowerInvariant() == email.ToLowerInvariant());
         }
 
         private bool CustomerExists(long id)
         {
             return _context.Customers.Any(e => e.Id == id);
+        }
+
+        private Customer GetCustomerByEmail(string email)
+        {
+            return _context.Customers.FirstOrDefault(c => c.Email.ToLowerInvariant() == email.ToLowerInvariant());
         }
     }
 }

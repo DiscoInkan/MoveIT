@@ -9,10 +9,10 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<MoveITContext>(opt =>
     opt.UseInMemoryDatabase("Customers"));
-//builder.Services.AddSwaggerGen(c =>
-//{
-//    c.SwaggerDoc("v1", new() { Title = "OfferApi", Version = "v1" });
-//});
+builder.Services.AddSwaggerGen(c =>
+{
+   c.SwaggerDoc("v1", new() { Title = "OfferApi", Version = "v1" });
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -25,8 +25,8 @@ var app = builder.Build();
 if (builder.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    //app.UseSwagger();
-    //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OfferApi v1"));
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OfferApi v1"));
 }
 
 app.UseHttpsRedirection();
@@ -35,6 +35,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.Run();

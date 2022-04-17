@@ -1,17 +1,91 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <title>MoveIT - Offert för bohagsflytt</title>
+    <link rel="stylesheet" href="css/site.css" />
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <meta charset="utf-8" />
-    <title></title>
+    <link rel="stylesheet" href="css/site.css" />
 </head>
 <body>
     <h1>Offert för bohagsflytt</h1>
-    <h2>Fyll i dina detaljer i formuläret nedan för en kostnadsfri offert.</h2>
-    <form action="">
+    <div id="calculatePriceForm">
+        <form action="javascript:void(0);" method="POST" onsubmit="calculatePrice()">
 
+            <label class="mdc-text-field mdc-text-field--outlined">
+                <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                        <span class="mdc-floating-label" id="from-address-label">Från adress</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                <input type="text" class="mdc-text-field__input" id="from-address" aria-labelledby="from-address-label">
+            </label>
+
+
+            <label class="mdc-text-field mdc-text-field--outlined">
+                <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                        <span class="mdc-floating-label" id="to-address-label">Till adress</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                <input type="text" class="mdc-text-field__input" id="to-address" aria-labelledby="to-address-label">
+            </label>
+
+            <label class="mdc-text-field mdc-text-field--outlined">
+                <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                        <span class="mdc-floating-label" id="distance-label">Avstånd i kilometer</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                <input type="text" class="mdc-text-field__input" id="distance" aria-labelledby="distance-label">
+            </label>
+
+
+            <label class="mdc-text-field mdc-text-field--outlined">
+                <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                        <span class="mdc-floating-label" id="living-space-label">Bostadens yta (kvadratmeter)</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                <input type="text" class="mdc-text-field__input" id="living-space" aria-labelledby="living-space-label">
+            </label>
+
+            <label class="mdc-text-field mdc-text-field--outlined">
+                <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__notch">
+                        <span class="mdc-floating-label" id="storage-space-label">Vind/Källare (kvadratmeter)</span>
+                    </span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                <input type="text" class="mdc-text-field__input" id="storage-space" aria-labelledby="storage-space-label">
+            </label>
+
+            <div class="mdc-checkbox">
+                <input type="checkbox" id="heavy-item" class="mdc-checkbox__native-control" />
+                <div class="mdc-checkbox__background">
+
+                </div>
+            </div>
+            <label for="heavy-item">Pianoflytt?</label>
+            <input type="submit" value="Beräkna pris">
+        </form>
+        <div id="price"></div>
+    </div>
+    <div id="requestOfferForm">
+        <h2>Fyll i dina detaljer i formuläret nedan för att beställa en kostnadsfri offert.</h2>
+        <h3>Offerten baseras på prisuträkningen ovan.</h3>
+        <form action="javascript:void(0);" onsubmit="updateItem()">
             <label class="mdc-text-field mdc-text-field--outlined">
                 <span class="mdc-notched-outline">
                     <span class="mdc-notched-outline__leading"></span>
@@ -22,7 +96,6 @@
                 </span>
                 <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
             </label>
-
 
             <label class="mdc-text-field mdc-text-field--outlined">
                 <span class="mdc-notched-outline">
@@ -35,47 +108,11 @@
                 <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
             </label>
 
-
             <label class="mdc-text-field mdc-text-field--outlined">
                 <span class="mdc-notched-outline">
                     <span class="mdc-notched-outline__leading"></span>
                     <span class="mdc-notched-outline__notch">
-                        <span class="mdc-floating-label" id="my-label-id">Från adress</span>
-                    </span>
-                    <span class="mdc-notched-outline__trailing"></span>
-                </span>
-                <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
-            </label>
-
-
-            <label class="mdc-text-field mdc-text-field--outlined">
-                <span class="mdc-notched-outline">
-                    <span class="mdc-notched-outline__leading"></span>
-                    <span class="mdc-notched-outline__notch">
-                        <span class="mdc-floating-label" id="my-label-id">Till adress</span>
-                    </span>
-                    <span class="mdc-notched-outline__trailing"></span>
-                </span>
-                <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
-            </label>
-
-
-            <label class="mdc-text-field mdc-text-field--outlined">
-                <span class="mdc-notched-outline">
-                    <span class="mdc-notched-outline__leading"></span>
-                    <span class="mdc-notched-outline__notch">
-                        <span class="mdc-floating-label" id="my-label-id">Bostadens yta (kvadratmeter)</span>
-                    </span>
-                    <span class="mdc-notched-outline__trailing"></span>
-                </span>
-                <input type="text" class="mdc-text-field__input" aria-labelledby="my-label-id">
-            </label>
-
-            <label class="mdc-text-field mdc-text-field--outlined">
-                <span class="mdc-notched-outline">
-                    <span class="mdc-notched-outline__leading"></span>
-                    <span class="mdc-notched-outline__notch">
-                        <span class="mdc-floating-label" id="my-label-id">Vind/Källare (kvadratmeter)</span>
+                        <span class="mdc-floating-label" id="my-label-id">Epostadress</span>
                     </span>
                     <span class="mdc-notched-outline__trailing"></span>
                 </span>
@@ -87,19 +124,15 @@
                 <div class="mdc-checkbox__background">
 
                 </div>
+
             </div>
-            <label for="my-checkbox">Pianoflytt?</label>
+            <label for="my-checkbox">Jag godkänner att mina uppgifter sparas</label>
+            <input type="submit" value="Skicka">
+        </form>
 
-        <div class="mdc-form-field">
-            <button class="mdc-button foo-button">
-                <div class="mdc-button__ripple"></div>
-                <span class="mdc-button__label">Button</span>
-            </button>
-        </div>
-    </form>
-    <script>
+    </div>
 
-        mdc.ripple.MDCRipple.attachTo(document.querySelector('.foo-button'));
-    </script>
+    <script src="js/site.js" asp-append-version="true"></script>
+
 </body>
 </html>

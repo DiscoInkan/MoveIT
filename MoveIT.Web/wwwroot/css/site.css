@@ -1,0 +1,7 @@
+﻿input[type='submit'], button, [aria-label] {
+    cursor: pointer;
+}
+
+#requestOfferForm {
+    display: none;
+}

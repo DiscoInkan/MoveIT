@@ -1,3 +1,5 @@
+using MoveIT.Web.Models;
+
 namespace MoveIT.Web
 {
     public class Offer
@@ -11,5 +13,6 @@ namespace MoveIT.Web
         public int StorageSpace { get; set; }
         public bool HeavyItem { get; set; }
         public decimal OfferPrice { get; set; }
+        public Customer? Customer { get; set; }  
     }
 }

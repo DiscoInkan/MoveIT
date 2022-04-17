@@ -12,6 +12,7 @@ namespace MoveIT.Web.Models
         }
 
         public DbSet<Customer> Customers { get; set; } = null!;
+        public DbSet<Offer> Offers { get; set; } = null!;
     }
 }
 
