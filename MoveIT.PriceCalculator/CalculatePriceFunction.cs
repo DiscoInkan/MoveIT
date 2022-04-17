@@ -19,15 +19,21 @@ namespace MoveIT.PriceCalculator
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            string name = req.Query["name"];
+            string distance = req.Query["distance"];
+            string livingSpace = req.Query["livingspace"];
+            string storageSpace = req.Query["storagespace"];
+            string hasHeavyItem = req.Query["heavyitem"];
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+            distance = distance ?? data?.distance;
+            livingSpace = livingSpace ?? data?.livingspace;
+            storageSpace = storageSpace ?? data?.livingspace;
+            hasHeavyItem = Convert.ToBoolean(hasHeavyItem ?? data?.hasheavyitem);
 
-            string responseMessage = string.IsNullOrEmpty(name)
+            string responseMessage = string.IsNullOrEmpty(distance)
                 ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
+                : $"Hello, the distance is: {distance}.";
 
             return new OkObjectResult(responseMessage);
         }
