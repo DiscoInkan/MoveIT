@@ -22,11 +22,18 @@ namespace MoveIT.PriceCalculator
 
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var data = JsonConvert.DeserializeObject<Price>( requestBody);
+            var data = JsonConvert.DeserializeObject<Price>(requestBody);
 
-            var totalPrice = CalculateTotalPrice(data.Distance, data.LivingSpace, data.StorageSpace, data.HasHeavyItem);
+            if(data != null && data.Distance != 0 && data.LivingSpace != 0 && data.StorageSpace != 0)
+            {
+                var totalPrice = CalculateTotalPrice(data.Distance, data.LivingSpace, data.StorageSpace, data.HasHeavyItem);
+                return new OkObjectResult(totalPrice);
+            }
+            else
+            {
+                return new BadRequestObjectResult("An error occurred in price calculation");
+            }
 
-            return new OkObjectResult(totalPrice);
         }
 
         public static decimal CalculateTotalPrice(int distance, int livingSpace, int storageSpace, bool hasHeavyItem)
