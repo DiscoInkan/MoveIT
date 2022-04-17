@@ -2,7 +2,7 @@
 {
     public interface IOfferService
     {
-        IOffer GetOffer();
+        Offer GetOffer();
         void SaveOffer();
     }
 }

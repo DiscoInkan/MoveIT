@@ -2,7 +2,7 @@
 {
     public class OfferService : IOfferService
     {
-        public IOffer GetOffer()
+        public Offer GetOffer()
         {
             return new Offer();
         }
