@@ -7,6 +7,7 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using MoveIT.PriceCalculator.Models;
 
 namespace MoveIT.PriceCalculator
 {
@@ -19,23 +20,45 @@ namespace MoveIT.PriceCalculator
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            string distance = req.Query["distance"];
-            string livingSpace = req.Query["livingspace"];
-            string storageSpace = req.Query["storagespace"];
-            string hasHeavyItem = req.Query["heavyitem"];
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            distance = distance ?? data?.distance;
-            livingSpace = livingSpace ?? data?.livingspace;
-            storageSpace = storageSpace ?? data?.livingspace;
-            hasHeavyItem = Convert.ToBoolean(hasHeavyItem ?? data?.hasheavyitem);
+            var data = JsonConvert.DeserializeObject<Price>( requestBody);
 
-            string responseMessage = string.IsNullOrEmpty(distance)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, the distance is: {distance}.";
+            var totalPrice = CalculateTotalPrice(data.Distance, data.LivingSpace, data.StorageSpace, data.HasHeavyItem);
 
-            return new OkObjectResult(responseMessage);
+            return new OkObjectResult(totalPrice);
+        }
+
+        public static decimal CalculateTotalPrice(int distance, int livingSpace, int storageSpace, bool hasHeavyItem)
+        {
+            var volumePrice = CalculateVolumePrice(distance, livingSpace, storageSpace);
+            if (hasHeavyItem)
+            {
+                return volumePrice + 5000;
+            }
+            return volumePrice;
+        }
+
+        public static decimal CalculateVolumePrice(int distance, int livingSpace, int storageSpace)
+        {
+            var distancePrice = CalculateDistancePrice(distance);
+
+            var totalSpace = livingSpace + storageSpace * 2;
+            var numberOfCars = Math.Floor((decimal)totalSpace / 50) + 1;
+            return numberOfCars * distancePrice; 
+        }
+
+        public static decimal CalculateDistancePrice(int distance)
+        {
+            switch (distance)
+            {
+                case < 50:
+                    return 1000 + distance * 10;
+                case >= 50 and < 100:
+                    return 5000 + distance * 8;
+                case >= 100:
+                    return 10000 + distance * 7;
+            }
         }
     }
 }
