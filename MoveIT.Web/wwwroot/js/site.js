@@ -8,10 +8,12 @@ function calculatePrice() {
     const heavyItemCheckBox = document.getElementById('heavy-item');
 
     const model = {
-        distance: distanceTextbox.value.trim(),
-        livingSpace: livingSpaceTextbox.value.trim(),
-        storageSpace: storageSpaceTextbox.value.trim(),
-        hasHeavyItem: heavyItemCheckBox.value.trim()
+        
+            Distance: parseInt(distanceTextbox.value.trim()),
+            LivingSpace: parseInt(livingSpaceTextbox.value.trim()),
+            StorageSpace: parseInt(storageSpaceTextbox.value.trim()),
+            HasHeavyItem: heavyItemCheckBox.checked
+        
     };
 
     fetch(priceUri, {
@@ -24,11 +26,21 @@ function calculatePrice() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            _displayPrice(data);
         })
         .catch(error => console.error('An error occurred, price can not be calculated.', error));
 }
 
+function showOfferForm() {
+    document.getElementById('requestOfferForm').style.display = 'block';
+}
+
+function requestOffer() {
+
+}
+
 function _displayPrice(data) {
-    document.getElementById('price').innerText = `Uppskattat pris: ${data.document} inkl. moms`;
+    const priceContainer = document.getElementById('price');
+    priceContainer.innerText = `Uppskattat pris: ${data} kr inkl. moms`;
+    priceContainer.style.display = 'block';
 }

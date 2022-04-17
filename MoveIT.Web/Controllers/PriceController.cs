@@ -9,12 +9,28 @@ namespace MoveIT.Web.Controllers
     [ApiController]
     public class PriceController : ControllerBase
     {
+        private readonly IHttpClientFactory _clientFactory;
+        private readonly IConfiguration _config;
+
+        public PriceController(IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        {
+            _clientFactory = httpClientFactory; 
+            _config = configuration;    
+        }      
 
         // POST api/price
         [HttpPost]
-        public string FetchPrice([FromBody] Price price)
+        public async Task<ActionResult<string>> FetchPrice([FromBody] Price price)
         {
-            return price.LivingSpace.ToString();
+            var client = _clientFactory.CreateClient();
+            var calculatePriceUri = _config.GetValue<string>("PriceFunctionUrl");
+            var response = await client.PostAsJsonAsync(calculatePriceUri, price);
+            if (response.IsSuccessStatusCode)
+            {
+                string respContent = response.Content.ReadAsStringAsync().Result;
+                return respContent;
+            }
+            return BadRequest();
         }
 
     }

@@ -5,3 +5,16 @@
 #requestOfferForm {
     display: none;
 }
+
+.form-item {
+    width: 100%;
+    margin: 10px;
+}
+
+label {
+    display: block;
+}
+
+label.inline {
+    display: inline;
+}

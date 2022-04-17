@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveIT.PriceCalculator", "MoveIT.PriceCalculator\MoveIT.PriceCalculator.csproj", "{80B19891-CEB2-427E-9C08-8D0EDD60CB1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoveIT.PriceCalculator", "MoveIT.PriceCalculator\MoveIT.PriceCalculator.csproj", "{80B19891-CEB2-427E-9C08-8D0EDD60CB1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveIT.Web", "MoveIT.Web\MoveIT.Web.csproj", "{9C76B2D5-07BA-4B60-A483-277C10740BE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoveIT.Web", "MoveIT.Web\MoveIT.Web.csproj", "{9C76B2D5-07BA-4B60-A483-277C10740BE2}"
 	ProjectSection(ProjectDependencies) = postProject
 		{80B19891-CEB2-427E-9C08-8D0EDD60CB1D} = {80B19891-CEB2-427E-9C08-8D0EDD60CB1D}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveIT.PriceCalculator.Tests", "MoveIT.PriceCalculator.Tests\MoveIT.PriceCalculator.Tests.csproj", "{B559B0CC-C7A5-4E63-82FF-4F6C478A18CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,10 @@ Global
 		{9C76B2D5-07BA-4B60-A483-277C10740BE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C76B2D5-07BA-4B60-A483-277C10740BE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C76B2D5-07BA-4B60-A483-277C10740BE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B559B0CC-C7A5-4E63-82FF-4F6C478A18CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B559B0CC-C7A5-4E63-82FF-4F6C478A18CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B559B0CC-C7A5-4E63-82FF-4F6C478A18CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B559B0CC-C7A5-4E63-82FF-4F6C478A18CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
