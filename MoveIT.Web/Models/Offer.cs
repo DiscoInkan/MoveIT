@@ -13,7 +13,7 @@ namespace MoveIT.Web
         public int LivingSpace { get; set; }
         public int StorageSpace { get; set; } = 0;
         public bool HeavyItem { get; set; }
-        public decimal OfferPrice { get; set; }
+        public int OfferPrice { get; set; }
         public Customer? Customer { get; set; }  
     }
 }

@@ -46,16 +46,16 @@
                     <input type="submit" value="Beräkna pris">
                 </div>
                 <div class="item">
-                    <div id="price" class="price"></div>
+                    <div id="price" class="price" data-price=""></div>
                 </div>
                 <div class="item">
-                    <a href="javascript:void(0);" onclick="showOfferForm()" class="offer-link">Beställ offert >></a>
+                    <a href="javascript:void(0);" onclick="showOfferForm()" id="offerLink" class="offer-link">Beställ offert >></a>
                 </div>
             </form>
         </div>
         <div id="requestOfferForm" >
             <div class="testbox">
-                <form action="javascript:void(0);" method="POST" onsubmit="requestOffer()">
+                <form action="javascript:void(0);" method="POST" onsubmit="createOffer()">
                     <div class="banner second-banner">
                         <h1>Beställ offert</h1>
                     </div>
@@ -77,7 +77,7 @@
                         <span>Jag godkänner att mina uppgifter sparas<span>*</span></span>
                     </div>
                     <div class="item">
-                        <input type="submit" value="Skicka">
+                        <input type="submit" value="Skicka" >
                     </div>
                 </form>
             </div>

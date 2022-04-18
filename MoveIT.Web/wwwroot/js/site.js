@@ -25,12 +25,13 @@ function calculatePrice() {
         .then(response => response.json())
         .then(data => {
             _displayPrice(data);
+            return data;
         })
         .catch(error => console.error('An error occurred, price can not be calculated.', error));
 }
 
 
-function requestOffer() {
+function createOffer() {
     const firstNameTextbox = document.getElementById('first-name');
     const lastNameTextbox = document.getElementById('last-name');
     const emailTextbox = document.getElementById('email');
@@ -40,7 +41,7 @@ function requestOffer() {
     const livingSpaceTextbox = document.getElementById('living-space');
     const storageSpaceTextbox = document.getElementById('storage-space');
     const heavyItemCheckBox = document.getElementById('heavy-item');
-    const priceContainer = document.getElementById('price');
+    const priceData = document.getElementById('price');
 
     const model = {
         FirstName: firstNameTextbox.value.trim(),
@@ -54,10 +55,10 @@ function requestOffer() {
                 LivingSpace: parseInt(livingSpaceTextbox.value.trim()),
                 StorageSpace: parseInt(storageSpaceTextbox.value.trim()),
                 HeavyItem: heavyItemCheckBox.checked,
-                OfferPrice: calculatePrice(),
+                OfferPrice: priceData.dataset.price
             }
         ]
-    }
+    };
 
     fetch(offerUri, {
         method: 'POST',
@@ -69,10 +70,9 @@ function requestOffer() {
     })
         .then(response => response.json())
         .then(data => {
-            //console.log(data);
             location.href = 'offer.html?id=' + data;
         })
-        .catch(error => console.error('An error occurred, price can not be calculated.', error));
+        .catch(error => console.error('An error occurred, price can not be calculated.'));
 }
 
 function getOffer() {
@@ -86,8 +86,7 @@ function getOffer() {
             .then(response => response.json())
             .then(data => _displayOfferDetails(data))
             .catch(error => {
-                console.error('An error occurred, could not fetch offer.', error);
-                offerContainer.innerText = "Offert kan inte visas."
+                console.error('An error occurred, could not fetch offer.');
             });
     }
 }
@@ -99,11 +98,53 @@ function showOfferForm() {
 }
 
 function _displayPrice(data) {
-    const priceContainer = document.getElementById('price');
-    priceContainer.innerText = `Uppskattat pris: ${data} kr inkl. moms`;
-    priceContainer.style.display = 'block';
+    if (data != null || data != 0) {
+        const priceContainer = document.getElementById('price');
+        const offerLink = document.getElementById('offerLink');
+
+        priceContainer.innerText = `Uppskattat pris: ${data} kr inkl. moms`;
+        priceContainer.setAttribute('data-price', data)
+        priceContainer.style.display = 'block';
+        offerLink.style.display = 'block';
+        offerLink.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+    }
+    else {
+        const priceContainer = document.getElementById('price');
+        priceContainer.innerText = "pris kan ej visas.";
+        priceContainer.style.display = 'block';
+    }
 }
 
-function _displayOfferDetails() {
+function _displayOfferDetails(data) {
+    const offerContainer = document.getElementById('offerContainer');
+    const offerLink = document.getElementById('offerUniqueLink');
 
+    const offerNumber = document.getElementById('offer-number');
+    const offerName = document.getElementById('offer-name');
+    const offerEmail = document.getElementById('offer-email');
+    const offerFromAddress = document.getElementById('offer-fromaddress');
+    const offerToAdddress = document.getElementById('offer-toaddress');
+    const offerDistance = document.getElementById('offer-distance');
+    const offerLivingSpace = document.getElementById('offer-livingspace');
+    const offerStorageSpace = document.getElementById('offer-storagespace');
+    const offerHeavyItem = document.getElementById('offer-heavyitem');
+
+    const priceContainer = document.getElementById('price');
+    
+
+    offerLink.href = "https://localhost:7002/offer.html?id=" + data.offerIdentifier;
+    offerLink.innerText = "https://localhost:7002/offer.html?id=" + data.offerIdentifier;
+    offerNumber.innerText = "";
+    offerName.innerText = "";
+    offerEmail.innerText = "";
+    offerFromAddress.innerText = data.fromAddress;
+    offerToAdddress.innerText = data.toAddress;
+    offerDistance.innerText = data.distance;
+    offerLivingSpace.innerText = data.livingSpace;
+    offerStorageSpace.innerText = data.storageSpace;
+    offerHeavyItem.innerText = data.heavyItem;
+    priceContainer.innerText = `Uppskattat pris: ${data.offerPrice} kr inkl. moms`;
+
+    offerContainer.style.display = 'block';
+    priceContainer.style.display = 'block';
 }

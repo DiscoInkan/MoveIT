@@ -139,13 +139,13 @@ input[type="date"]::-webkit-inner-spin-button {
 }
 
 #price {
-    background-color: #808080;
     font-size: 18px;
     padding: 30px 20px;
-    color: #fff;
+    color: #666;
     border-radius: 6px;
     margin-bottom: 30px;
     display: none;
+    border: 2px solid #808080;
 }
 
 .offer-link {
@@ -156,6 +156,8 @@ input[type="date"]::-webkit-inner-spin-button {
     padding: 10px;
     border-radius: 6px;
     font-weight: bold;
+    display: none;
+    margin-bottom: 40px;
 }
 
 [type="date"]::-webkit-calendar-picker-indicator {
@@ -251,6 +253,10 @@ button {
 
 #offerContainer {
     display: none;
+}
+
+#offerContainer span {
+    color: #666;
 }
 
 @media (min-width: 568px) {
