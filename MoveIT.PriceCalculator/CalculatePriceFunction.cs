@@ -26,13 +26,12 @@ namespace MoveIT.PriceCalculator
             if(data != null && data.Distance != 0 && data.LivingSpace != 0)
             {
                 var totalPrice = CalculateTotalPrice(data.Distance, data.LivingSpace, data.StorageSpace, data.HasHeavyItem);
-                return new OkObjectResult(totalPrice);
+                return new OkObjectResult((int)Math.Ceiling(totalPrice));
             }
             else
             {
                 return new BadRequestObjectResult("An error occurred in price calculation");
             }
-
         }
 
         public static decimal CalculateTotalPrice(int distance, int livingSpace, int storageSpace, bool hasHeavyItem)
@@ -40,16 +39,16 @@ namespace MoveIT.PriceCalculator
             var volumePrice = CalculateVolumePrice(distance, livingSpace, storageSpace);
             if (hasHeavyItem)
             {
-                return Decimal.Round(volumePrice + 5000);
+                return volumePrice + 5000;
             }
-            return Decimal.Round(volumePrice);
+            return volumePrice;
         }
 
         public static decimal CalculateVolumePrice(int distance, int livingSpace, int storageSpace)
         {
             var distancePrice = CalculateDistancePrice(distance);
 
-            var totalSpace = livingSpace + storageSpace * 2;
+            var totalSpace = livingSpace + (storageSpace * 2);
             var numberOfCars = Math.Floor((decimal)totalSpace / 50) + 1;
             return numberOfCars * distancePrice; 
         }
@@ -59,11 +58,11 @@ namespace MoveIT.PriceCalculator
             switch (distance)
             {
                 case < 50:
-                    return 1000 + distance * 10;
+                    return 1000 + (distance * 10);
                 case >= 50 and < 100:
-                    return 5000 + distance * 8;
+                    return 5000 + (distance * 8);
                 case >= 100:
-                    return 10000 + distance * 7;
+                    return 10000 + (distance * 7);
             }
         }
     }

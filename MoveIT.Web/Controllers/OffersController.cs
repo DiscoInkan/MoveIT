@@ -16,70 +16,47 @@ namespace MoveIT.Web.Controllers
             _context = context;
         }
 
-        // GET: api/offers/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Offer>> GetOffer(long id)
+        // GET: api/offers/guid
+        [HttpGet("{offerIdentifier}")]
+        public async Task<ActionResult<Offer>> GetOffer(string offerIdentifier)
         {
-            var offer = await _context.Offers.FindAsync(id);
-
-            if (offer == null)
+            if (!string.IsNullOrEmpty(offerIdentifier))
             {
-                return NotFound();
-            }
+                var identifiedOffer = GetOfferByIdentifier(offerIdentifier);
+                var offer = await _context.Offers.FindAsync(identifiedOffer.Id);
+                if (offer == null)
+                {
+                    return NotFound();
+                }
 
-            return offer;
+                return Ok(offer);
+            }
+            return NotFound();
         }
 
         // POST: api/offers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> CreateOffer(Customer customer)
+        public async Task<ActionResult<string>> CreateOffer(Customer customer)
         {
-            if (!CustomerExists(customer.Email))
+            if (!CustomerExists(customer.Email)) //Create a new customer
             {
                 _context.Customers.Add(customer);
                 await _context.SaveChangesAsync();
+                var maxOfferDate = customer.Offers.Max(d => d.OfferDate);
+                var latestOffer = customer.Offers.FirstOrDefault(d => d.OfferDate >= maxOfferDate);
+                return Ok(latestOffer.OfferIdentifier);
             }
-            else
-            {
-                _context.Entry(customer).State = EntityState.Modified;
+            else //Update an existing customer
+            {   
+                var existingCustomer = GetCustomerByEmail(customer.Email);
+                var customerOffer = customer.Offers.FirstOrDefault();
+                customerOffer.Customer = customer;
+                _context.Offers.Add(customerOffer);
+                _context.Entry(customerOffer).State = EntityState.Modified;
+                return Ok(customerOffer.OfferIdentifier);
             }
-
-            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
         }
-
-        // PUT: api/offers/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(long id, Customer customer)
-        {
-            if (id != customer.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(customer).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CustomerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-
 
         private bool CustomerExists(string email)
         {
@@ -94,6 +71,10 @@ namespace MoveIT.Web.Controllers
         private Customer GetCustomerByEmail(string email)
         {
             return _context.Customers.FirstOrDefault(c => c.Email.ToLowerInvariant() == email.ToLowerInvariant());
+        }
+        private Offer GetOfferByIdentifier(string offerIdentifier)
+        {
+            return _context.Offers.FirstOrDefault(c => c.OfferIdentifier == Guid.Parse(offerIdentifier));
         }
     }
 }

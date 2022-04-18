@@ -11,12 +11,19 @@
     <div class="testbox">
         <div class="container">
             <div class="banner third-banner">
-                <h1>Din offert</h1>
+                <h1>Prisförslag för bohagsflytt</h1>
             </div>
-            <div class="item">
-                <p>Namn: </p>
+            <div id="offerContainer">
+                <div class="item">
+                    <p>Offertnummer: <span id="offer-number"></span></p>
+                </div>
+
             </div>
         </div>
     </div>
+    <script src="js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        getOffer();
+    </script>
 </body>
 </html>

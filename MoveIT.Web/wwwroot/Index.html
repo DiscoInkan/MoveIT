@@ -16,7 +16,7 @@
                 <div class="banner">
                     <h1>Flytta med MoveIT!</h1>
                 </div>
-                <p>Beräkna din flyttkostnad och beställ en offert.</p>
+                <p>Beräkna din flyttkostnad och begär en offert.</p>
                 <div class="item">
                     <label for="from-address">Från adress<span>*</span></label>
                     <input type="text" id="from-address" autocomplete="off" required>
@@ -46,10 +46,10 @@
                     <input type="submit" value="Beräkna pris">
                 </div>
                 <div class="item">
-                    <div id="price"></div>
+                    <div id="price" class="price"></div>
                 </div>
                 <div class="item">
-                    <a href="javascript:void(0);" onclick="showOfferForm()">Beställ offert</a>
+                    <a href="javascript:void(0);" onclick="showOfferForm()" class="offer-link">Beställ offert >></a>
                 </div>
             </form>
         </div>
@@ -62,18 +62,18 @@
                     <p>Beställ en kostnadsfri offert genom att fylla i uppgifterna. Din offert baseras på prisuträkningen ovan.</p>
                     <div class="item">
                         <label for="first-name">Förnamn<span>*</span></label>
-                        <input type="text" id="first-name" required>
+                        <input type="text" id="first-name" autocomplete="off" required>
                     </div>
                     <div class="item">
                         <label for="last-name">Efternamn<span>*</span></label>
-                        <input type="text" id="last-name" required>
+                        <input type="text" id="last-name" autocomplete="off" required>
                     </div>
                     <div class="item">
                         <label for="email">Epostadress<span>*</span></label>
-                        <input type="email" id="email" required>
+                        <input type="email" id="email" autocomplete="off" required>
                     </div>
                     <div class="item checkbox">
-                        <input type="checkbox" class="checkbox" id="approval">
+                        <input type="checkbox" class="checkbox" id="approval" required>
                         <span>Jag godkänner att mina uppgifter sparas<span>*</span></span>
                     </div>
                     <div class="item">

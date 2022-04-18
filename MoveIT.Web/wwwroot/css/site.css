@@ -1,5 +1,6 @@
 ﻿input[type='submit'], button, [aria-label] {
     cursor: pointer;
+    font-weight: bold;
 }
 
 input[type=checkbox] {
@@ -137,14 +138,32 @@ input[type="date"]::-webkit-inner-spin-button {
     z-index: 1;
 }
 
+#price {
+    background-color: #808080;
+    font-size: 18px;
+    padding: 30px 20px;
+    color: #fff;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    display: none;
+}
+
+.offer-link {
+    background-color: #cc7a00;
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
 [type="date"]::-webkit-calendar-picker-indicator {
     right: 1%;
     z-index: 2;
     opacity: 0;
     cursor: pointer;
 }
-
-
 
 label.radio {
     position: relative;
@@ -229,6 +248,10 @@ button {
     .checkbox a:hover {
         color: #85d6de;
     }
+
+#offerContainer {
+    display: none;
+}
 
 @media (min-width: 568px) {
     .name-item, .city-item {
