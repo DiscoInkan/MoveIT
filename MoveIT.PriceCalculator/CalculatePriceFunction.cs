@@ -15,16 +15,15 @@ namespace MoveIT.PriceCalculator
     {
         [FunctionName("CalculatePriceFunction")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var data = JsonConvert.DeserializeObject<Price>(requestBody);
 
-            if(data != null && data.Distance != 0 && data.LivingSpace != 0 && data.StorageSpace != 0)
+            if(data != null && data.Distance != 0 && data.LivingSpace != 0)
             {
                 var totalPrice = CalculateTotalPrice(data.Distance, data.LivingSpace, data.StorageSpace, data.HasHeavyItem);
                 return new OkObjectResult(totalPrice);
@@ -41,9 +40,9 @@ namespace MoveIT.PriceCalculator
             var volumePrice = CalculateVolumePrice(distance, livingSpace, storageSpace);
             if (hasHeavyItem)
             {
-                return volumePrice + 5000;
+                return Decimal.Round(volumePrice + 5000);
             }
-            return volumePrice;
+            return Decimal.Round(volumePrice);
         }
 
         public static decimal CalculateVolumePrice(int distance, int livingSpace, int storageSpace)

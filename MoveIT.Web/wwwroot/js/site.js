@@ -32,7 +32,10 @@ function calculatePrice() {
 }
 
 function showOfferForm() {
-    document.getElementById('requestOfferForm').style.display = 'block';
+    const offerForm = document.getElementById('requestOfferForm');
+    offerForm.style.display = 'block';
+    offerForm.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+
 }
 
 function requestOffer() {

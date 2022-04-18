@@ -1,77 +1,88 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE htmlitem
 <html>
 <head>
     <meta charset="UTF-8">
     <title>MoveIT - Offert för bohagsflytt</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="css/site.css" />
 </head>
 <body>
-    <h1>MoveIT:s fantastiska flyttjänst!</h1>
-    <h2>Beräkna din flyttkostnad och beställ en offert.</h2>
-    <div id="calculatePriceForm">
-        <form action="javascript:void(0);" method="POST" onsubmit="calculatePrice()">
-            <div class="form-item">
-                <label for="from-address">Från adress</label>
-                <input type="text" id="from-address">
-            </div>
-            <div class="form-item">
-                <label for="to-address">Till adress</label>
-                <input type="text" id="to-address">
-            </div>
-            <div class="form-item">
-                <label for="from-address">Avstånd (i kilometer)</label>
-                <input type="text" id="distance">
-            </div>
-            <div class="form-item">
 
-                <label for="living-space">Bostadsyta (i kvadratmeter)</label>
-                <input type="text" id="living-space">
-            </div>
-            <div class="form-item">
-                <label for="storage-space">Vind/Källare (i kvadratmeter)</label>
-                <input type="text" id="storage-space">
-            </div>
-            <div class="form-item">
-                <label class="inline" for="heavy-item">Pianoflytt?</label>
-                <input type="checkbox" id="heavy-item">
-            </div>
-            <div class="form-item">
-                <input type="submit" value="Beräkna pris">
-            </div>
-            <div class="form-item">
-                <div id="price"></div>
-            </div>
-            <div class="form-item">
-                <a href="javascript:void(0);" onclick="showOfferForm()">Beställ offert</a>
-            </div>
-        </form>
-    </div>
-    <div id="requestOfferForm">
-        <h2>Fyll i dina detaljer i formuläret nedan för att beställa en kostnadsfri offert.</h2>
-        <h3>Offerten baseras på prisuträkningen ovan.</h3>
-        <form action="javascript:void(0);" method="POST" onsubmit="requestOffer()">
-            <div class="form-item">
-                <label for="first-name">Förnamn</label>
-                <input type="text" id="first-name">
-            </div>
-            <div class="form-item">
-                <label for="last-name">Efternamn</label>
-                <input type="text" id="last-name">
-            </div>
-            <div class="form-item">
-                <label for="email">Epostadress</label>
-                <input type="text" id="email">
-            </div>
-            <div class="form-item">
-                <label for="approval">Jag godkänner att mina uppgifter sparas</label>
-                <input type="checkbox" id="approval">
-            </div>
-            <div class="form-item">
-                <input type="submit" value="Skicka">
-            </div>
-        </form>
-    </div>
 
+        <div id="calculatePriceForm" class="testbox">
+            
+            <form action="javascript:void(0);" method="POST" onsubmit="calculatePrice()">
+                <div class="banner">
+                    <h1>Flytta med MoveIT!</h1>
+                </div>
+                <p>Beräkna din flyttkostnad och beställ en offert.</p>
+                <div class="item">
+                    <label for="from-address">Från adress<span>*</span></label>
+                    <input type="text" id="from-address" required>
+                </div>
+                <div class="item">
+                    <label for="to-address">Till adress<span>*</span></label>
+                    <input type="text" id="to-address" required>
+                </div>
+                <div class="item">
+                    <label for="from-address">Avstånd (i kilometer)<span>*</span></label>
+                    <input type="number" id="distance" required>
+                </div>
+                <div class="item">
+
+                    <label for="living-space">Bostadsyta (i kvadratmeter)<span>*</span></label>
+                    <input type="number" id="living-space" required>
+                </div>
+                <div class="item">
+                    <label for="storage-space">Vind/Källare (i kvadratmeter)</label>
+                    <input type="number" id="storage-space">
+                </div>
+                <div class="item checkbox">
+                    <input type="checkbox" class="checkbox" id="heavy-item">
+                    <span>Pianoflytt?</span>
+                </div>
+                <div class="item">
+                    <input type="submit" value="Beräkna pris">
+                </div>
+                <div class="item">
+                    <div id="price"></div>
+                </div>
+                <div class="item">
+                    <a href="javascript:void(0);" onclick="showOfferForm()">Beställ offert</a>
+                </div>
+            </form>
+        </div>
+        <div id="requestOfferForm" >
+            <div class="testbox">
+                <form action="javascript:void(0);" method="POST" onsubmit="requestOffer()">
+                    <div class="banner second-banner">
+                        <h1>Beställ offert</h1>
+                    </div>
+                    <p>Beställ en kostnadsfri offert genom att fylla i uppgifterna. Din offert baseras på prisuträkningen ovan.</p>
+                    <div class="item">
+                        <label for="first-name">Förnamn<span>*</span></label>
+                        <input type="text" id="first-name" required>
+                    </div>
+                    <div class="item">
+                        <label for="last-name">Efternamn<span>*</span></label>
+                        <input type="text" id="last-name" required>
+                    </div>
+                    <div class="item">
+                        <label for="email">Epostadress<span>*</span></label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="item checkbox">
+                        <input type="checkbox" class="checkbox" id="approval">
+                        <span>Jag godkänner att mina uppgifter sparas<span>*</span></span>
+                    </div>
+                    <div class="item">
+                        <input type="submit" value="Skicka">
+                    </div>
+                </form>
+            </div>
+        </div>
+ 
     <script src="js/site.js" asp-append-version="true"></script>
 
 </body>
