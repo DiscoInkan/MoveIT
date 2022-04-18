@@ -19,28 +19,28 @@
                 <p>Beräkna din flyttkostnad och beställ en offert.</p>
                 <div class="item">
                     <label for="from-address">Från adress<span>*</span></label>
-                    <input type="text" id="from-address" required>
+                    <input type="text" id="from-address" autocomplete="off" required>
                 </div>
                 <div class="item">
                     <label for="to-address">Till adress<span>*</span></label>
-                    <input type="text" id="to-address" required>
+                    <input type="text" id="to-address"  autocomplete="off" required>
                 </div>
                 <div class="item">
                     <label for="from-address">Avstånd (i kilometer)<span>*</span></label>
-                    <input type="number" id="distance" required>
+                    <input type="number" id="distance"  autocomplete="off" required>
                 </div>
                 <div class="item">
 
                     <label for="living-space">Bostadsyta (i kvadratmeter)<span>*</span></label>
-                    <input type="number" id="living-space" required>
+                    <input type="number" id="living-space"  autocomplete="off" required>
                 </div>
                 <div class="item">
                     <label for="storage-space">Vind/Källare (i kvadratmeter)</label>
-                    <input type="number" id="storage-space">
+                    <input type="number" id="storage-space"  autocomplete="off" value="0">
                 </div>
                 <div class="item checkbox">
                     <input type="checkbox" class="checkbox" id="heavy-item">
-                    <span>Pianoflytt?</span>
+                    <span>Flytt av piano? (innebär en extra kostnad)</span>
                 </div>
                 <div class="item">
                     <input type="submit" value="Beräkna pris">

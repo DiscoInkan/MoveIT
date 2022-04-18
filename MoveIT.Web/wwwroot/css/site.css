@@ -42,7 +42,7 @@ h1 {
     max-width: 600px;
 }
 
-form {
+form, .container {
     width: 100%;
     padding: 20px;
     border-radius: 6px;
@@ -71,6 +71,10 @@ form {
 
 .second-banner {
     background-image: url("/images/IMG_9161.JPG");
+}
+
+.third-banner {
+    background-image: url("/images/IMG_9160.JPG");
 }
 
 input, select, textarea {
