@@ -139,7 +139,7 @@ function _displayOfferDetails(data) {
     offerEmail.innerText = data.customer.email;
     offerFromAddress.innerText = data.fromAddress;
     offerToAdddress.innerText = data.toAddress;
-    offerDistance.innerText = data.distance;
+    offerDistance.innerText = data.distance + " kilometer";
     offerLivingSpace.innerText = data.livingSpace + " kvadratmeter";
     offerStorageSpace.innerText = data.storageSpace + " kvadratmeter";
     offerHeavyItem.innerText = data.heavyItem;
