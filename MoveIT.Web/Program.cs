@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using MoveIT.Web.Models;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddDbContext<MoveITContext>(opt =>
     opt.UseInMemoryDatabase("Customers"));

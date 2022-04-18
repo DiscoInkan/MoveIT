@@ -134,14 +134,14 @@ function _displayOfferDetails(data) {
 
     offerLink.href = "https://localhost:7002/offer.html?id=" + data.offerIdentifier;
     offerLink.innerText = "https://localhost:7002/offer.html?id=" + data.offerIdentifier;
-    offerNumber.innerText = "";
-    offerName.innerText = "";
-    offerEmail.innerText = "";
+    offerNumber.innerText = data.id;
+    offerName.innerText = data.customer.firstName + " " + data.customer.lastName;
+    offerEmail.innerText = data.customer.email;
     offerFromAddress.innerText = data.fromAddress;
     offerToAdddress.innerText = data.toAddress;
     offerDistance.innerText = data.distance;
-    offerLivingSpace.innerText = data.livingSpace;
-    offerStorageSpace.innerText = data.storageSpace;
+    offerLivingSpace.innerText = data.livingSpace + " kvadratmeter";
+    offerStorageSpace.innerText = data.storageSpace + " kvadratmeter";
     offerHeavyItem.innerText = data.heavyItem;
     priceContainer.innerText = `Uppskattat pris: ${data.offerPrice} kr inkl. moms`;
 

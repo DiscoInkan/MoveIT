@@ -1,4 +1,5 @@
 using MoveIT.Web.Models;
+using System.Text.Json.Serialization;
 
 namespace MoveIT.Web
 {
@@ -14,6 +15,6 @@ namespace MoveIT.Web
         public int StorageSpace { get; set; } = 0;
         public bool HeavyItem { get; set; }
         public int OfferPrice { get; set; }
-        public Customer? Customer { get; set; }  
+        public virtual Customer Customer { get; set; }  = new Customer();
     }
 }

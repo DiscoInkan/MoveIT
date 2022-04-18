@@ -23,13 +23,13 @@ namespace MoveIT.Web.Controllers
             if (!string.IsNullOrEmpty(offerIdentifier))
             {
                 var identifiedOffer = GetOfferByIdentifier(offerIdentifier);
-                var offer = await _context.Offers.FindAsync(identifiedOffer.Id);
-                if (offer == null)
+
+                if (identifiedOffer == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(offer);
+                return Ok(identifiedOffer);
             }
             return NotFound();
         }
@@ -44,7 +44,8 @@ namespace MoveIT.Web.Controllers
                 _context.Customers.Add(customer);
                 await _context.SaveChangesAsync();
                 var maxOfferDate = customer.Offers.Max(d => d.OfferDate);
-                var latestOffer = customer.Offers.FirstOrDefault(d => d.OfferDate >= maxOfferDate);
+                var latestOffer = customer.Offers.FirstOrDefault(d => d.OfferDate >= maxOfferDate);                
+
                 return Ok(latestOffer.OfferIdentifier);
             }
             else //Update an existing customer
@@ -74,7 +75,7 @@ namespace MoveIT.Web.Controllers
         }
         private Offer GetOfferByIdentifier(string offerIdentifier)
         {
-            return _context.Offers.FirstOrDefault(c => c.OfferIdentifier == Guid.Parse(offerIdentifier));
+            return _context.Offers.Include(o => o.Customer).FirstOrDefault(c => c.OfferIdentifier == Guid.Parse(offerIdentifier));
         }
     }
 }
